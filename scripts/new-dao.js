@@ -1,7 +1,7 @@
-const GardensTemplate = artifacts.require("GardensTemplate")
+const MetaGameTemplate = artifacts.require("MetaGameTemplate")
 const Token = artifacts.require("Token")
 
-const DAO_ID = "gardens" + Math.random() // Note this must be unique for each deployment, change it for subsequent deployments
+const DAO_ID = "metagame" + Math.random() // Note this must be unique for each deployment, change it for subsequent deployments
 const TOKEN_OWNER = "0xb4124cEB3451635DAcedd11767f004d8a28c6eE7"
 const NETWORK_ARG = "--network"
 const DAO_ID_ARG = "--daoid"
@@ -11,7 +11,7 @@ const argValue = (arg, defaultValue) => process.argv.includes(arg) ? process.arg
 const network = () => argValue(NETWORK_ARG, "local")
 const daoId = () => argValue(DAO_ID_ARG, DAO_ID)
 
-const gardensTemplateAddress = () => {
+const metagameTemplateAddress = () => {
   if (network() === "rinkeby") {
     const Arapp = require("../arapp")
     return Arapp.environments.rinkeby.address
@@ -76,12 +76,12 @@ const TAP_FLOOR = 0
 
 module.exports = async (callback) => {
   try {
-    const gardensTemplate = await GardensTemplate.at(gardensTemplateAddress())
+    const metagameTemplate = await MetaGameTemplate.at(metagameTemplateAddress())
 
     const collateralToken = await Token.new(TOKEN_OWNER, COLLATERAL_TOKEN_NAME, COLLATERAL_TOKEN_SYMBOL)
     console.log(`Created ${COLLATERAL_TOKEN_SYMBOL} Token: ${collateralToken.address}`)
 
-    const createDaoTxOneReceipt = await gardensTemplate.createDaoTxOne(
+    const createDaoTxOneReceipt = await metagameTemplate.createDaoTxOne(
       ORG_TOKEN_NAME,
       ORG_TOKEN_SYMBOL,
       VOTING_SETTINGS,
@@ -93,14 +93,14 @@ module.exports = async (callback) => {
     );
     console.log(`Tx One Complete. DAO address: ${createDaoTxOneReceipt.logs.find(x => x.event === "DeployDao").args.dao} Gas used: ${createDaoTxOneReceipt.receipt.gasUsed} `)
 
-//    const createDaoTxTwoReceipt = await gardensTemplate.createDaoTxTwo(
+//    const createDaoTxTwoReceipt = await metagameTempla.createDaoTxTwo(
 //      collateralToken.address,
 //      TOLLGATE_FEE,
 //      collateralToken.address
 //    )
 //    console.log(`Tx Two Complete. Gas used: ${createDaoTxTwoReceipt.receipt.gasUsed}`)
 
-    const createDaoTxThreeReceipt = await gardensTemplate.createDaoTxThree(
+    const createDaoTxThreeReceipt = await metagameTemplate.createDaoTxThree(
       PRESALE_GOAL,
       PRESALE_PERIOD,
       PRESALE_EXCHANGE_RATE,
@@ -117,7 +117,7 @@ module.exports = async (callback) => {
     )
     console.log(`Tx Three Complete. Gas used: ${createDaoTxThreeReceipt.receipt.gasUsed}`)
 
-    const createDaoTxFourReceipt = await gardensTemplate.createDaoTxFour(
+    const createDaoTxFourReceipt = await metagameTemplate.createDaoTxFour(
       daoId(),
       VIRTUAL_SUPPLY,
       VIRTUAL_BALANCE,

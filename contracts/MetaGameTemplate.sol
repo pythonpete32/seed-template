@@ -14,7 +14,7 @@ import {IConvictionVoting as ConvictionVoting} from "./external/IConvictionVotin
 import {IAragonFundraisingController as Controller} from "./external/IAragonFundraisingController.sol";
 import {IIssuance as Issuance} from "./external/IIssuance.sol";
 
-contract GardensTemplate is BaseTemplate {
+contract MetaGameTemplate is BaseTemplate {
 
     string constant private ERROR_MISSING_MEMBERS = "MISSING_MEMBERS";
     string constant private ERROR_BAD_VOTE_SETTINGS = "BAD_SETTINGS";
@@ -49,7 +49,7 @@ contract GardensTemplate is BaseTemplate {
     bytes32 private constant CONVICTION_VOTING_APP_ID = 0x16c0b0af27b5e169e5f678055840d7ab2b312519d7700a06554c287619f4b9f9; // gardens-dependency.open.aragonpm.eth
     bytes32 private constant TOLLGATE_APP_ID = 0x0d321283289e70165ef6db7f11fc62c74a7d39dac3ee148428c4f9e3d74c6d61;
     bytes32 private constant HOOKED_TOKEN_MANAGER_APP_ID = 0x26bb91b115bf14acbdc18d75042e165321eceeb3d10d852386576bbd0ec11519; // gardens-token-manager.open.aragonpm.eth
-    bytes32 private constant ARAGON_FUNDRAISING_ID = 0x2e7868bd85fc61cf3dda63aff7d1207ea0793ef217fef1c2c7f74e95967439fc; // gardens-fundraising.open.aragonpm.eth
+    bytes32 private constant ARAGON_FUNDRAISING_ID = keccak256(abi.encodePacked(apmNamehash("open"), keccak256("bazaar"))); // gardens-fundraising.open.aragonpm.eth
 
     // Local and Rinkeby app ID's (no need to change between environments)
     bytes32 private constant BANCOR_FORMULA_ID = 0xd71dde5e4bea1928026c1779bde7ed27bd7ef3d0ce9802e4117631eb6fa4ed7d;

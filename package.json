@@ -1,7 +1,7 @@
 {
-  "name": "@aragon/help-dao-template",
+  "name": "metagame-template",
   "version": "1.0.0",
-  "description": "Help Dao Template",
+  "description": "Meta Game Template",
   "license": "GPL-3.0-or-later",
   "files": [
     "abi/",
